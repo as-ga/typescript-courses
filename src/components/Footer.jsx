@@ -50,7 +50,7 @@ function Footer() {
 
         <ul className="social-links">
           {socialLinks.map((link, index) => (
-            <a href="https://www.linkedin.com/in/ashutoshgaurav05/">
+            <a href="https://ashutosh.engineer/">
               <li key={index}>{link}</li>
             </a>
           ))}

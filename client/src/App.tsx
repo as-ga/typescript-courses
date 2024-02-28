@@ -44,7 +44,7 @@ const App = () => {
   const { user, loading } = useSelector(
     (state: RootState) => state.userReducer
   );
-
+  // return signOut(auth).then((c)=>console.log("done"));
   const dispatch = useDispatch();
 
   useEffect(() => {

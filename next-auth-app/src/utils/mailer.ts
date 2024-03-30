@@ -6,38 +6,44 @@ export const sendMail = async ({ email, emailType, userId }: any) => {
   try {
     const hashedToken = await bcryptjs.hash(userId.toString(), 10);
 
-    if (emailType === "verify") {
-      await User.findByIdAndUpdate(userId, {
-        verifyToken: hashedToken,
-        verifyTokenExpire: Date.now() + 3600000,
+    if (emailType === "VERIFY") {
+     await User.findByIdAndUpdate(userId, {
+        $set: {
+          verifyToken: hashedToken,
+          verifyTokenExpire: Date.now() + 3600000,
+        },
       });
+      
     } else if (emailType === "RESET") {
       await User.findByIdAndUpdate(userId, {
-        forgotPasswordToken: hashedToken,
-        forgotPasswordTokenExpire: Date.now() + 3600000,
+        $set: {
+          forgotPasswordToken: hashedToken,
+          forgotPasswordTokenExpire: Date.now() + 3600000,
+        },
       });
     }
 
     var transport = nodeMailer.createTransport({
       host: process.env.NODEMAILER_HOST,
-      port: process.env.NODEMAILER_PORT,
+      port: 2525,
       auth: {
         user: process.env.NODEMAILER_USER,
         pass: process.env.NODEMAILER_PASS,
       },
     });
+
     const mailOptions = {
       from: "gaurav@gmail.com",
       to: email,
       subject:
-        emailType === "verify" ? "Verify your email" : "Reset your password",
+        emailType === "VERIFY" ? "Verify your email" : "Reset your password",
       html: `<p>Click <a href="${
         process.env.DOMAIN
-      }/verifyemail?tokan=${hashedToken}">here</a> to ${
+      }api/users/verifyemail?tokan=${hashedToken}">here</a> to ${
         emailType === "VERIFY" ? "verify your email" : "Reset your password"
       } or copy and paste the link below in your browser. <br> ${
         process.env.DOMAIN
-      }/verifyemail?tokan=${hashedToken} </br></p>`,
+      }api/users/verifyemail?tokan=${hashedToken} </br></p>`,
     };
 
     const mailResponse = await transport.sendMail(mailOptions);

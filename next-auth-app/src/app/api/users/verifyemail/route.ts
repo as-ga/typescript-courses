@@ -12,8 +12,8 @@ export async function POST(request: NextRequest) {
     console.log(token);
 
     const user = await User.findOne({
-      emailVerificationToken: token,
-      emailVerificationTokenExpires: { $gt: Date.now() },
+      verifyToken: token,
+      verifyTokenExpire: { $gt: Date.now() },
     });
 
     if (!user) {

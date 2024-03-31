@@ -15,6 +15,6 @@ export async function dbConnect() {
     });
   } catch (error) {
     console.error("Error connecting to database: ", error);
-    console.log(error);
+    // console.log(error);
   }
 }

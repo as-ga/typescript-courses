@@ -12,7 +12,7 @@ export async function POST(requset: NextRequest) {
     const { email, password } = reqBody;
 
     // validation
-    console.log(reqBody);
+    // console.log(reqBody);
 
     const user = await User.findOne({ email });
 
@@ -23,7 +23,7 @@ export async function POST(requset: NextRequest) {
       );
     }
 
-    console.log("user exists");
+    // console.log("user exists");
 
     const validPassword = await bcryptjs.compare(password, user.password);
     if (!validPassword) {

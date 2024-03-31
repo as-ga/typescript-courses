@@ -12,7 +12,7 @@ export async function POST(requset: NextRequest) {
     const { username, email, password } = reqBody;
 
     // validation
-    console.log(reqBody);
+    // console.log(reqBody);
 
     const user = await User.findOne({ email });
 
@@ -33,7 +33,7 @@ export async function POST(requset: NextRequest) {
     });
 
     const sevedUser = await newUser.save();
-    console.log("User saved: ", sevedUser);
+    // console.log("User saved: ", sevedUser);
 
     // send verification email
     await sendMail({ email, emailType: "VERIFY", userId: sevedUser._id });

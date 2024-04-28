@@ -33,7 +33,7 @@ export async function POST(request: Request) {
       return Response.json(
         {
           success: false,
-          message: "User not found",
+          message: "User yyyyyyyyyyy not found",
         },
         { status: 401 }
       );
@@ -74,16 +74,12 @@ export async function GET(request: Request) {
     );
   }
 
-  const userid = user.id;
-
   try {
-    const foundUser = await UserModel.findById(userid);
+    const foundUser = await UserModel.findById(user._id);
+    // console.log(foundUser);
     if (!foundUser) {
       return Response.json(
-        {
-          success: false,
-          message: "User not found",
-        },
+        { success: false, message: "Userhhhhhhhhhhhhhh not found" },
         { status: 404 }
       );
     }

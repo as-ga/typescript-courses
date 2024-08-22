@@ -1,27 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
-// const prisma = new PrismaClient();
+const prisma = new PrismaClient();
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
-    // const video = await prisma.video.findMany({
-    //   orderBy: { createdAt: "desc" },
-    // });
-    // console.log(video);
+    const videos = await prisma.video.findMany({
+      orderBy: { createdAt: "desc" },
+    });
 
-    return NextResponse.json({ gaurav: "ashu" });
+    return NextResponse.json({ videos });
   } catch (error) {
     return NextResponse.json(
       { error: "error fetching videos" },
       { status: 500 }
     );
   } finally {
-    // await prisma.$disconnect();
-    console.log("prisma disconnected");
+    await prisma.$disconnect();
   }
 }
 
-// export async function GET(req: NextRequest, res: NextResponse) {
-//   return NextResponse.json({ gaurav: "ashu" });
-// }

@@ -42,11 +42,11 @@ export default function SocialShare() {
         method: "POST",
         body: formData,
       });
-      if (!response.ok) throw new Error("Failed to upload image");
+      if (!response.ok) throw new Error("Failed to upload image file");
       const data = await response.json();
       setUploadedImage(data.publicId);
     } catch (error) {
-      console.log(error);
+      console.log("Failed to upload:", error);
       alert("Failed to upload image");
     } finally {
       setIsUploading(false);

@@ -18,7 +18,7 @@ interface CloudinaryUploadResult {
   [key: string]: any;
 }
 
-export async function post(request: NextRequest) {
+export async function POST(request: NextRequest) {
   const { userId } = auth();
 
   if (!userId) {
@@ -66,6 +66,7 @@ export async function post(request: NextRequest) {
         duration: result.duration || 0,
       },
     });
+    return NextResponse.json(video);
   } catch (error) {
     console.log("Error uploading video", error);
     return NextResponse.json(

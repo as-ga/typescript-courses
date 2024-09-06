@@ -5,9 +5,12 @@
   "type": "module",
   "scripts": {
     "start": "node ./dist/index.js",
-    "dev": "nodemon ./dist/index.js",
     "watch": "tsc -w",
-    "build": "tsc"
+    "build": "concurrently \"tsc\" \"npm run copy-files\" ",
+    "server": "nodemon ./dist/index.js",
+    "dev": "concurrently \"npm run watch\" \"npm run server\" \"npm run watch-views\"",
+    "copy-files": "copyfiles -u 1 \"views/**/*\" dist/",
+    "watch-views": "nodemon --watch views -e ejs -x \"npm run copy-files\""
   },
   "repository": {
     "type": "git",
@@ -26,12 +29,18 @@
     "@prisma/client": "^5.19.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
     "express": "^4.19.2",
+    "nodemailer": "^6.9.14",
     "prisma": "^5.19.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
+    "@types/ejs": "^3.1.5",
     "@types/express": "^4.17.21",
+    "@types/nodemailer": "^6.4.15",
+    "concurrently": "^8.2.2",
+    "copyfiles": "^2.4.1",
     "nodemon": "^3.1.4",
     "typescript": "^5.5.4"
   }

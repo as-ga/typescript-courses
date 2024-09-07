@@ -3,7 +3,8 @@ import "dotenv/config";
 import path from "path";
 import { fileURLToPath } from "url";
 import { sendEmail } from "./config/mail.js";
-import ejs from "ejs";
+import ejs, { name } from "ejs";
+import { emailQueue, emailQueueName } from "./jobs/EmailQueue.js";
 
 const app: Application = express();
 const port: number = Number(process.env.PORT || 5000);
@@ -17,12 +18,19 @@ app.set("view engine", "ejs");
 app.set("views", path.resolve(__dirname, "./"));
 
 app.get("/", async (req: Request, res: Response) => {
-  const html = await ejs.renderFile(__dirname + `/emails/welcome.ejs`, {
-    name: "Ashutosh Gaurav",
-  });
-  await sendEmail("geyeyev843@obisims.com", "Testing SMTP", html);
+  // const html = await ejs.renderFile(__dirname + `/emails/welcome.ejs`, {
+  //   name: "Ashutosh Gaurav",
+  // });
+  // await sendEmail("geyeyev843@obisims.com", "Testing SMTP", html);
+
+  await emailQueue.add(emailQueueName, { name: "Ashutosh Gaurav", age: 21 });
+
   // return res.render("emails/welcome", { name: "Ashutosh Gaurav" });
-  return res.json({ message: "Email sent " });
+  return res.json({ message: "Email sent Successfully" });
+});
+
+app.get("/ip", (req: Request, res: Response) => {
+  return res.json({ ip: req.ip });
 });
 
 app.listen(port, () => {

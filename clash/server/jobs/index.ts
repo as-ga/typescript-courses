@@ -1,1 +1,1 @@
-import "./TestQueue.js"
+import "./EmailQueue.js"

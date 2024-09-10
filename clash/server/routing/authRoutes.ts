@@ -156,7 +156,7 @@ router.post("/register", authLimiter, async (req: Request, res: Response) => {
     if (user) {
       return res.status(422).json({
         errors: {
-          email: "Email already taken.please use another one.",
+          email: "Email already Exist, Plese try another email.",
         },
       });
     }
@@ -336,7 +336,7 @@ router.post(
 );
 
 router.get("/user", authMiddleware, async (req: Request, res: Response) => {
-  const user = req?.body?.user;
+  const user = req.user;
   await testQueue.add(testQueueName, user);
   return res.json({ message: "Fetched", user });
 });

@@ -21,6 +21,7 @@ export default async function register() {
           <p>Start clashing now</p>
         </div>
         <Register />
+        <p>{process.env.NEXTAUTH_URL}</p>
         <p className="text-center mt-2">
           Already have an account ?{" "}
           <strong>
